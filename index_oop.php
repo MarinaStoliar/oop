@@ -6,35 +6,35 @@ class Bank
     protected $uah;
     protected  $usd;
     protected  $eur;
-    protected  $exchangeusd;
-    protected  $exchangeeur;
+    protected  $exchangeUsd;
+    protected  $exchangeEur;
 
-    public function __construct($uah, $usd, $eur, $exchangeusd, $exchangeeur)
+    public function __construct($uah, $usd, $eur, $exchangeUsd, $exchangeEur)
     {
         $this->uah = $uah;
         $this->usd = $usd;
         $this->eur = $eur;
-        $this->exchangeusd = $exchangeusd;
-        $this->exchangeeur = $exchangeeur;
+        $this->exchangeUsd = $exchangeUsd;
+        $this->exchangeEur = $exchangeEur;
 
     }
-    public function ChangeUsd($newusd)
+    public function ChangeUsd($cameUsd)
     {
-        $x_uah = $this->exchangeusd * $newusd;
-        if ($x_uah <= $this->uah) {
-            $this->uah = $this->uah - $x_uah;
-            $this->usd = $this->usd + $newusd;
-            return $x_uah;
+        $issuedUah = $this->exchangeUsd * $cameUsd;
+        if ($issuedUah <= $this->uah) {
+            $this->uah = $this->uah - $issuedUah;
+            $this->usd = $this->usd + $cameUsd;
+            return $issuedUah;
         } else {
             return -1;
         }
     }
-    public function ChangeEur($newueur){
-        $x_uah = $this->exchangeeur * $newueur;
-        if ($x_uah <= $this->uah) {
-            $this->uah = $this->uah - $x_uah;
-            $this->eur = $this->eur + $newueur;
-            return $x_uah;
+    public function ChangeEur($cameEur){
+        $issuedUah = $this->exchangeEur * $cameEur;
+        if ($issuedUah <= $this->uah) {
+            $this->uah = $this->uah - $issuedUah;
+            $this->eur = $this->eur + $cameEur;
+            return $issuedUah;
         } else {
             return -1;
         }
@@ -50,13 +50,12 @@ class Bank
 class Monobank extends Bank{
 
 
-
-    public function __construct($uah, $usd, $eur, $exchangeusd, $exchangeeur)
+    public function __construct($uah, $usd, $eur, $exchangeUsd, $exchangeEur)
     {
-        $exchangeusd = $exchangeusd + 0.02;
-        $exchangeeur = $exchangeeur + 0.02;
+        $exchangeUsd = $exchangeUsd + 0.02;
+        $exchangeEur = $exchangeEur + 0.02;
 
-        parent::__construct($uah, $usd, $eur, $exchangeusd, $exchangeeur);
+        parent::__construct($uah, $usd, $eur, $exchangeUsd, $exchangeEur);
     }
 }
 
@@ -74,7 +73,6 @@ $mono->ChangeUsd(100);
 $mono->ChangeEur(200);
 $mono->uskiod;
 echo Bank::POLICY;
-
 print_r($mono);
 
 
